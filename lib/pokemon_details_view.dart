@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pokedex_app/bloc/pokemon_details_cubit.dart';
 import 'package:pokedex_app/data/pokemon_model.dart';
 
 class PokemonDetailsView extends StatelessWidget {
-  const PokemonDetailsView({Key? key}) : super(key: key);
+  final FlutterTts tts = FlutterTts();
+  PokemonDetailsView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +20,11 @@ class PokemonDetailsView extends StatelessWidget {
       body: BlocBuilder<PokemonDetailsCubit, PokemonDetails?>(
         builder: (context, details) {
           if (details != null) {
+            tts.speak(
+              details.description
+                  .replaceAll('\n', ' ')
+                  .replaceAll('\u000c', ' '),
+            );
             return Center(
               child: Column(
                 children: [
@@ -88,6 +97,7 @@ class PokemonDetailsView extends StatelessWidget {
               ),
             );
           }
+          tts.stop();
           return const Center(child: CircularProgressIndicator());
         },
       ),

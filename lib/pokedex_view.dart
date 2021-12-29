@@ -22,10 +22,8 @@ class _PokedexViewState extends State<PokedexView> {
       ),
       body: BlocBuilder<PokemonBloc, PokemonState>(builder: (context, state) {
         if (state is PokemonLoadingState) {
-          print('loooooding');
           return const Center(child: CircularProgressIndicator());
         } else if (state is PokemonLoadSuccessState) {
-          print('loooooded');
           return Column(
             children: [
               Expanded(
@@ -93,12 +91,12 @@ class _PokedexViewState extends State<PokedexView> {
             ],
           );
         } else if (state is PokemonLoadFailedState) {
-          print('errssasas');
-          return Center(
-            child: Text(state.error.toString()),
+          // print(state.error.toString());
+          return const Center(
+            child:
+                Text("Error while loading! Please try opening the app later."),
           );
         }
-        print('oth');
         return const SizedBox();
       }),
     );

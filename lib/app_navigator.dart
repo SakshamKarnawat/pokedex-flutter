@@ -14,8 +14,7 @@ class AppNavigator extends StatelessWidget {
         return Navigator(
           pages: [
             const MaterialPage(child: PokedexView()),
-            if (pokemonId != null)
-              const MaterialPage(child: PokemonDetailsView()),
+            if (pokemonId != null) MaterialPage(child: PokemonDetailsView()),
           ],
           onPopPage: (route, result) {
             BlocProvider.of<NavCubit>(context).popToPokedex();

@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:pokedex_app/data/pokemon_model.dart';
 import 'package:pokedex_app/data/pokemon_repository.dart';
 

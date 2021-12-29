@@ -24,10 +24,9 @@ class PokemonRepository {
     try {
       final http.Response response = await client.get(uri);
       final json = jsonDecode(response.body);
-      print(json);
       return PokemonInfoResponse.fromJson(json);
     } catch (e) {
-      print(e);
+      // print(e.toString());
     }
   }
 
@@ -38,10 +37,9 @@ class PokemonRepository {
     try {
       final http.Response response = await client.get(uri);
       final json = jsonDecode(response.body);
-      print(json);
       return PokemonSpeciesInfoResponse.fromJson(json);
     } catch (e) {
-      print(e);
+      // print(e.toString());
     }
   }
 }
