@@ -92,7 +92,7 @@ class _PokedexViewState extends State<PokedexView> {
             ],
           );
         } else if (state is PokemonLoadFailedState) {
-          // print(state.error.toString());
+          print(state.error.toString());
           return const Center(
             child:
                 Text("Error while loading! Please try opening the app later."),
