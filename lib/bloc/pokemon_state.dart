@@ -18,6 +18,6 @@ class PokemonLoadSuccessState extends PokemonState {
 }
 
 class PokemonLoadFailedState extends PokemonState {
-  final error;
+  final Object error;
   PokemonLoadFailedState({required this.error});
 }

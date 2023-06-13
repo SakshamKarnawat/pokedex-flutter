@@ -1,3 +1,4 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/data/pokemon_repository.dart';
 
@@ -6,24 +7,31 @@ import 'pokemon_event.dart';
 import 'pokemon_state.dart';
 
 class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
+  PokemonBloc() : super(PokemonInitialState()) {
+    on<PokemonEvent>(
+      mapEventToState,
+      transformer: sequential(),
+    );
+  }
+
   final PokemonRepository _pokemonRepository = PokemonRepository();
 
-  PokemonBloc() : super(PokemonInitialState());
-
-  @override
-  Stream<PokemonState> mapEventToState(PokemonEvent event) async* {
+  Future<void> mapEventToState(
+    PokemonEvent event,
+    Emitter<PokemonState> emit,
+  ) async {
     if (event is RequestPokemonPage) {
-      yield PokemonLoadingState();
+      emit(PokemonLoadingState());
       try {
         final PokemonPageResponse pokemonPage =
             await _pokemonRepository.getPokemonPage(event.page);
-        yield PokemonLoadSuccessState(
+        emit(PokemonLoadSuccessState(
           pokemonList: pokemonPage.pokemonList,
           canLoadNext: pokemonPage.canLoadNext,
           canLoadPrev: pokemonPage.canLoadPrev,
-        );
+        ));
       } catch (e) {
-        yield PokemonLoadFailedState(error: e);
+        emit(PokemonLoadFailedState(error: e));
       }
     }
     return;

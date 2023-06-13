@@ -10,10 +10,10 @@ class PokedexView extends StatefulWidget {
   const PokedexView({Key? key}) : super(key: key);
 
   @override
-  _PokedexViewState createState() => _PokedexViewState();
+  PokedexViewState createState() => PokedexViewState();
 }
 
-class _PokedexViewState extends State<PokedexView> {
+class PokedexViewState extends State<PokedexView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,10 +92,9 @@ class _PokedexViewState extends State<PokedexView> {
             ],
           );
         } else if (state is PokemonLoadFailedState) {
-          print(state.error.toString());
           return const Center(
-            child:
-                Text("Error while loading! Please try opening the app later."),
+            child: Text(
+                "Error while loading! Please try opening the app again in a few minutes."),
           );
         }
         return const SizedBox();
